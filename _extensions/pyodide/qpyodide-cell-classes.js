@@ -11,6 +11,8 @@ globalThis.qpyodideCreateCell = function(cellData) {
             return new OutputCell(cellData);
         case 'setup':
             return new SetupCell(cellData);
+        case 'autorun':
+            return new AutoRunCell(cellData);
         default:
             return new InteractiveCell(cellData);
             // throw new Error('Invalid cell type specified in options.');
