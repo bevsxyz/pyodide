@@ -523,3 +523,68 @@ class SetupCell extends BaseCell {
         this.executeCode();
     }
 };
+
+class AutoRunCell extends BaseCell {
+
+    /**
+     * Constructor for AutoRunCell.
+     * @constructor
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     */
+    constructor(cellData) {
+        super(cellData);
+        this.setupElement();
+        this.displayCode();
+    }
+
+    /**
+     * Set up the static cell elements.
+     */
+    setupElement() {
+
+        // Create main div element
+        var mainDiv = document.createElement('div');
+        mainDiv.id = `autorun-area-${this.id}`;
+        mainDiv.className = `autorun-area`;
+        if (this.options.classes) {
+            mainDiv.className += " " + this.options.classes
+        }
+
+        // Add a unique cell identifier if provided
+        if (this.options.label) {
+            mainDiv.setAttribute('data-id', this.options.label);
+        }
+
+        // Create static code display div
+        var codeDiv = document.createElement('div');
+        codeDiv.id = `autorun-code-${this.id}`;
+        codeDiv.className = 'autorun-code';
+
+        // Append the codeDiv to the mainDiv
+        mainDiv.appendChild(codeDiv);
+
+        // Insert the dynamically generated object at the document location.
+        this.insertionLocation.appendChild(mainDiv);
+    }
+
+    /**
+     * Autorun the python code.
+     */
+    autoRunCode() {
+        this.executeCode();
+    }
+
+    /**
+     * Display the code as a read-only text.
+     */
+    displayCode() {
+        var codeDiv = document.getElementById(`autorun-code-${this.id}`);
+        
+        // Create pre element to display the code
+        var preElement = document.createElement('pre');
+        preElement.textContent = this.code;
+
+        // Append the pre element to the codeDiv
+        codeDiv.appendChild(preElement);
+    }
+}
