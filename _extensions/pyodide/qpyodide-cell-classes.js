@@ -537,6 +537,7 @@ class AutoRunCell extends BaseCell {
         super(cellData);
         this.setupElement();
         this.displayCode();
+        this.autoRunCode();
     }
 
     /**
